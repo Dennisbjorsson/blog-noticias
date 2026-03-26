@@ -26,4 +26,4 @@ jobs:
         run: npm install 
         
       - name: rodar o built  
-        run: npm run build
+        run: npm run built
