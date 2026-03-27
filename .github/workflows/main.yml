@@ -1,31 +1,65 @@
 
 ## nome do workflows, aparece na actions
-name: Pipelines ci/cd
-on: 
-   push:
-     branches:
-       - main
-   workflow_dispatch: ## isso habilida o botão "run workflow" no github actions    
+name: CI/CD Pipeline
 
+on: 
+  push:
+    branches: 
+      - main
+     
+  pull_request:
+    branches: 
+      - main
+       
 jobs:
-  ## primeiro job: built 
-   built: 
+  build: 
     runs-on: ubuntu-latest
    
     steps:
-
       - name: checkout do codigo 
         uses: actions/checkout@v5
 
       - name: Instalação do node 
         uses: actions/setup-node@v4
-        
         with:
           node-version: '20'
-      - name: Instalação das depêndencias   
-        run: npm install 
+          cache: 'npm'
+          cache-dependency-path: ./blog/package-lock.json
+
+      - name: Instalação das dependências   
+        run: npm ci
         working-directory: ./blog
         
-      - name: rodar o built  
+      - name: rodar lint 
+        run: npm run lint
+        working-directory: ./blog
+
+      - name: rodar testes
+        run: npm test --if-present
+        working-directory: ./blog
+
+      - name: Build da aplicação
         run: npm run build
+        working-directory: ./blog
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+ 
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+ 
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar Vercel CLI
+        run: npm install -g vercel 
+
+      - name: Deploy para Vercel 
+        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
         working-directory: ./blog
