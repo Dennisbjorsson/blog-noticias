@@ -24,6 +24,8 @@ jobs:
           node-version: '20'
       - name: Instalação das depêndencias   
         run: npm install 
+        working-directory: ./blog
         
       - name: rodar o built  
-        run: npm run built
+        run: npm run build
+        working-directory: ./blog
