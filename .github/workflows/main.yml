@@ -17,10 +17,10 @@ jobs:
    
     steps:
       - name: checkout do codigo 
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Instalação do node 
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
           cache: 'npm'
