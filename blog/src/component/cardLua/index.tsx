@@ -1,9 +1,10 @@
-import Link from "next/link";
-import { artigos} from "@/types//types";
-import styles from "./cardLua.module.css";
+import Link from 'next/link';
+import { artigos } from '@/types//types';
+import styles from './cardLua.module.css';
+import Image from 'next/image';
 
 type Props = {
-  lua: artigos; 
+  lua: artigos;
 };
 
 const CardLua = ({ lua }: Props) => {
@@ -12,7 +13,7 @@ const CardLua = ({ lua }: Props) => {
   return (
     <article className={styles.card}>
       <div className={styles.imageWrapper}>
-        <img  src={imagem} alt={titulo} width={400} height={600} />
+        <Image src={imagem} alt={titulo} width={400} height={600} />
       </div>
 
       <div className={styles.container}>

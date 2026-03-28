@@ -5,7 +5,9 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .card:hover {
@@ -53,5 +55,5 @@
 
 .link:hover {
   color: #4b5563;
-text-decoration: none;
+  text-decoration: none;
 }

@@ -1,32 +1,27 @@
-import { lua } from "@/libis/luaPage/luaPage";
-import { notFound } from "next/navigation";
-import { Metadata } from "next";
-import styles from "./page.module.css";
-
-
-
+import { lua } from '@/libis/luaPage/luaPage';
+import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
+import styles from './page.module.css';
+import Image from 'next/image';
 
 export async function generateStaticParams() {
-  return lua.map(item => ({
+  return lua.map((item) => ({
     slug: item.slug,
   }));
 }
-
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateMetadata(
-  { params }: Props
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const page = lua.find(item => item.slug === slug);
+  const page = lua.find((item) => item.slug === slug);
 
   if (!page) {
     return {
-      title: "Artigo não encontrado",
-      description: "Este artigo não existe.",
+      title: 'Artigo não encontrado',
+      description: 'Este artigo não existe.',
     };
   }
 
@@ -38,7 +33,7 @@ export async function generateMetadata(
 
 export default async function ArtigoPage({ params }: Props) {
   const { slug } = await params;
-  const page = lua.find(item => item.slug === slug);
+  const page = lua.find((item) => item.slug === slug);
 
   if (!page) {
     notFound();
@@ -56,7 +51,7 @@ export default async function ArtigoPage({ params }: Props) {
     lancamentoImagem,
     creditoLancamento,
     astronautasImagem,
-    creditoAstronautas
+    creditoAstronautas,
   } = page;
 
   return (
@@ -68,7 +63,7 @@ export default async function ArtigoPage({ params }: Props) {
       </p>
 
       <figure className={styles.figure}>
-        <img src={imagem} alt={titulo} className={styles.image} />
+        <Image src={imagem} alt={titulo} className={styles.image} />
         <figcaption className={styles.caption}>
           Crédito da imagem: {creditoImagem}
         </figcaption>
@@ -79,21 +74,24 @@ export default async function ArtigoPage({ params }: Props) {
       <h2 className={styles.subtitle}> O que é a Artemis II</h2>
 
       <figure className={styles.figure}>
-        <img src={artemiImagem} alt={titulo} className={styles.image} />
+        <Image src={artemiImagem} alt={titulo} className={styles.image} />
         <figcaption className={styles.caption}>
           Crédito da imagem: {creditoArtemis}
         </figcaption>
       </figure>
 
       <p className={styles.text}>
-       A Artemis II é a primeira missão tripulada do programa Artemis, que busca devolver humanos ao espaço lunar e, no futuro, pousá-los novamente na superfície. 
-       Esta missão não pousará na Lua, mas orbitará e circundará o satélite natural da Terra, abrindo caminho para pousos mais ambiciosos nas próximas etapas do programa.
+        A Artemis II é a primeira missão tripulada do programa Artemis, que
+        busca devolver humanos ao espaço lunar e, no futuro, pousá-los novamente
+        na superfície. Esta missão não pousará na Lua, mas orbitará e circundará
+        o satélite natural da Terra, abrindo caminho para pousos mais ambiciosos
+        nas próximas etapas do programa.
       </p>
-      
+
       <h2 className={styles.subtitle}> Quando vai acontecer?</h2>
 
       <figure className={styles.figure}>
-        <img src={lancamentoImagem} alt={titulo} className={styles.image} />
+        <Image src={lancamentoImagem} alt={titulo} className={styles.image} />
         <figcaption className={styles.caption}>
           Crédito da imagem: {creditoLancamento}
         </figcaption>
@@ -107,7 +105,7 @@ export default async function ArtigoPage({ params }: Props) {
       <h2 className={styles.subtitle}> Quem vai na missão</h2>
 
       <figure className={styles.figure}>
-        <img src={astronautasImagem} alt={titulo} className={styles.image} />
+        <Image src={astronautasImagem} alt={titulo} className={styles.image} />
         <figcaption className={styles.caption}>
           Crédito da imagem: {creditoAstronautas}
         </figcaption>

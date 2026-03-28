@@ -1,31 +1,27 @@
-import { dispositivo } from "@/libis/dispositivo";
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { dispositivo } from '@/libis/dispositivo';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import styles from "./page.module.css";
-
-
+import Image from 'next/image'
 
 export async function generateStaticParams() {
-  return dispositivo.map(item => ({
+  return dispositivo.map((item) => ({
     slug: item.slug,
   }));
 }
-
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateMetadata(
-  { params }: Props
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const page = dispositivo.find(item => item.slug === slug);
+  const page = dispositivo.find((item) => item.slug === slug);
 
   if (!page) {
     return {
-      title: "Artigo não encontrado",
-      description: "Este artigo não existe.",
+      title: 'Artigo não encontrado',
+      description: 'Este artigo não existe.',
     };
   }
 
@@ -35,23 +31,16 @@ export async function generateMetadata(
   };
 }
 
-
 export default async function ArtigoDispositivo({ params }: Props) {
   const { slug } = await params;
-  const page = dispositivo.find(item => item.slug === slug);
+  const page = dispositivo.find((item) => item.slug === slug);
 
   if (!page) {
     notFound();
   }
 
-  const {
-    titulo,
-    autor,
-    dataPublicacao,
-    conteudo,
-    imagem,
-    dispositivoImagem
-  } = page;
+  const { titulo, autor, dataPublicacao, conteudo, imagem, dispositivoImagem } =
+    page;
 
   return (
     <article className={styles.article}>
@@ -62,11 +51,7 @@ export default async function ArtigoDispositivo({ params }: Props) {
       </p>
 
       <figure className={styles.figure}>
-        <img
-          src={imagem}
-          alt={titulo}
-          className={styles.image}
-        />
+        <Image src={imagem} alt={titulo} className={styles.image} />
       </figure>
 
       <p className={styles.intro}>{conteudo}</p>
@@ -81,11 +66,7 @@ export default async function ArtigoDispositivo({ params }: Props) {
       </p>
 
       <figure className={styles.figure}>
-        <img
-          src={dispositivoImagem}
-          alt={titulo}
-          className={styles.image}
-        />
+        <Image src={dispositivoImagem} alt={titulo} className={styles.image} />
       </figure>
 
       <h2 className={styles.subtitle}> Precisão clínica e estudos</h2>

@@ -1,20 +1,24 @@
-import { artigosIa } from "@/types/typesIa";
-import Link from "next/link";
+import { artigosIa } from '@/types/typesIa';
+import Link from 'next/link';
 import styles from "./cardTesla.module.css";
+import Image from 'next/image';
 
 type Props = {
-    blog: artigosIa;
-}
-
+  blog: artigosIa;
+};
 
 const CardTesla = ({ blog }: Props) => {
+  const { slug, titulo, dataPublicacao, descricao, imagem } = blog;
 
-    const { slug, titulo, dataPublicacao, descricao, imagem } = blog;
-
-
-    return (
-        <article className={styles.card}>
-      <img className={styles.image} src={imagem} alt={titulo} width={300} height={400} />
+  return (
+    <article className={styles.card}>
+      <Image
+      className={styles.image}
+        src={imagem}
+        alt={titulo}
+        width={300}
+        height={400}
+      />
 
       <div className={styles.container}>
         <h3 className={styles.title}>{titulo}</h3>
@@ -28,14 +32,5 @@ const CardTesla = ({ blog }: Props) => {
     </article>
   );
 };
-
-
-
-            
-    
-
-
-    
-
 
 export default CardTesla;

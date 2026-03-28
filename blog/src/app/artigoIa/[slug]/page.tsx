@@ -1,31 +1,27 @@
-import { tesla } from "@/libis/tesla";
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
-import styles from "./page.module.css";
-
-
+import { tesla } from '@/libis/tesla';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import styles from './page.module.css';
+import Image from 'next/image';
 
 export async function generateStaticParams() {
-  return tesla.map(item => ({
+  return tesla.map((item) => ({
     slug: item.slug,
   }));
 }
-
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateMetadata(
-  { params }: Props
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const page = tesla.find(item => item.slug === slug);
+  const page = tesla.find((item) => item.slug === slug);
 
   if (!page) {
     return {
-      title: "Artigo não encontrado",
-      description: "Este artigo não existe.",
+      title: 'Artigo não encontrado',
+      description: 'Este artigo não existe.',
     };
   }
 
@@ -37,7 +33,7 @@ export async function generateMetadata(
 
 export default async function ArtigoIa({ params }: Props) {
   const { slug } = await params;
-  const page = tesla.find(item => item.slug === slug);
+  const page = tesla.find((item) => item.slug === slug);
 
   if (!page) {
     notFound();
@@ -50,7 +46,7 @@ export default async function ArtigoIa({ params }: Props) {
     conteudo,
     imagem,
     xaiImagem,
-    xai2Imagem
+    xai2Imagem,
   } = page;
 
   return (
@@ -62,55 +58,39 @@ export default async function ArtigoIa({ params }: Props) {
       </p>
 
       <figure className={styles.figure}>
-        <img
-          src={imagem}
-          alt={titulo}
-          className={styles.image}
-        />
+        <Image src={imagem} alt={titulo} className={styles.image} />
       </figure>
 
       <p className={styles.intro}>{conteudo}</p>
 
-      <h2 className={styles.subtitle}>
-         Valuation e aquisições importantes
-      </h2>
+      <h2 className={styles.subtitle}>Valuation e aquisições importantes</h2>
 
       <p className={styles.text}>
-        Em março de 2025, Musk anunciou que sua startup de IA, xAI,
-        adquiriu a plataforma X (antigo Twitter) em um acordo de troca de
-        ações, valorizando a xAI em cerca de US$ 80 bilhões.
+        Em março de 2025, Musk anunciou que sua startup de IA, xAI, adquiriu a
+        plataforma X (antigo Twitter) em um acordo de troca de ações,
+        valorizando a xAI em cerca de US$ 80 bilhões.
       </p>
 
       <figure className={styles.figure}>
-        <img
-          src={xaiImagem}
-          alt={titulo}
-          className={styles.image}
-        />
+        <Image src={xaiImagem} alt={titulo} className={styles.image} />
       </figure>
 
-      <h2 className={styles.subtitle}>
-         Grandes injeções de capital
-      </h2>
+      <h2 className={styles.subtitle}>Grandes injeções de capital</h2>
 
       <p className={styles.text}>
-        O grupo estatal saudita Humain anunciou um investimento de
-        US$ 3 bilhões na rodada de financiamento da xAI, reforçando
-        o poder financeiro por trás da estratégia de IA de Musk.
+        O grupo estatal saudita Humain anunciou um investimento de US$ 3 bilhões
+        na rodada de financiamento da xAI, reforçando o poder financeiro por
+        trás da estratégia de IA de Musk.
       </p>
 
       <figure className={styles.figure}>
-        <img
-          src={xai2Imagem}
-          alt={titulo}
-          className={styles.image}
-        />
+        <Image src={xai2Imagem} alt={titulo} className={styles.image} />
       </figure>
 
       <p className={styles.text}>
-        A aposta de Musk na IA visa criar um ecossistema tecnológico
-        integrado, unindo carros autônomos, redes sociais e exploração
-        espacial sob um núcleo de inteligência artificial.
+        A aposta de Musk na IA visa criar um ecossistema tecnológico integrado,
+        unindo carros autônomos, redes sociais e exploração espacial sob um
+        núcleo de inteligência artificial.
       </p>
     </article>
   );
